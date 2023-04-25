@@ -1,0 +1,12 @@
+S -> A1B1|XcB1|c|XaZ1|A2B2|XaA2|a|XbZ2
+S1 -> A1B1|XcB1|c|XaZ1
+A1 -> XaZ1
+Z1 -> A1Xb|b
+B1 -> XcB1|c
+S2 -> A2B2|XbZ2|XaA2|a
+A2 -> XaA2|a
+B2 -> XbZ2
+Z2 -> B2Xc|c
+Xa -> a
+Xb -> b
+Xc -> c

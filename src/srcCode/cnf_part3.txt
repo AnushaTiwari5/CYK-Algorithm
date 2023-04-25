@@ -1,0 +1,13 @@
+S -> XaZ4|XbZ5|WZ6|#|WW|PZ1|YZ2|YZ7|PW|WP|WZ3
+Z1 -> WY
+Z2 -> WP
+Z3 -> PW
+P -> XaZ4|XbZ5|WZ6|#|WW
+Z4 -> PXa
+Z5 -> PXb
+Z6 -> YW
+Y -> XaY|XbY|WY|#
+Z7 -> Z2Z1
+Xa -> a
+Xb -> b
+W -> #
