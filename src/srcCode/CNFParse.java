@@ -12,73 +12,110 @@ import java.util.LinkedList;
  */
 public class CNFParse {
 	
-	/*
-	 * A dictionary used to store all the CNF rules of the grammar.
-	 * Each rule will be broken down into a single LHS -> RHS pair.
-	 * The LHS will be the Key, and the RHS will be the Value.
-	 * 
+	/*	 * 
 	 * An array of Linked Lists will be used to store the rules of the grammar
 	 * The head of each Linked List will be the LHS of the rule
 	 * The rest of the nodes will be the RHS of the rule
-	 */
-	//Map<String, String> cnfRules = null;
-	
+	 */	
 	Rule[] cnfRules;
 	
 	/*
-	 * The rules of the grammar. 
+	 * The rules of the grammar
 	 */
-	String[] ruleset = null;
+	ArrayList<String> ruleset = null;
+	
+	/*
+	 * The start symbol of this grammar
+	 */
+	String start;
 	
 	/**
 	 * Constructor of the parser class
 	 * @param rules An array containing the rules of the grammar.
 	 */
-	public CNFParse(String[] rules) {
+	public CNFParse(ArrayList<String> rules) {
 		this.ruleset = rules;
-		//cnfRules = new HashMap<String, String>();
+		
+		//The start symbol is the first lhs in the ruleset
+		this.start = rules.get(0).split("->")[0];
 		
 		//Number of linked lists = number of rules because each rule will be a linked list
-		this.cnfRules = new Rule[rules.length];
+		this.cnfRules = new Rule[rules.size()];
 		
 		//Loop to go through all the rules and store them as individual pairs
-		for(int i = 0; i < rules.length; i++) {
+		for(int i = 0; i < rules.size(); i++) {
 			/*
 			 * Each line will be a rule in the form lhs -> rhs1 | rhs2 ...
 			 * The lhs and rhs are separated by "->"
-			 * The rules in the rhs are separated by "|"
+			 * The strings in the rhs are separated by "|"
 			 * Break down each rule to get the lhs of the rule,
 			 * and an array of all the possible rhs using this rule
 			 */
-			String lhs = ruleset[i].split("->")[0]; 
-			String[] rhs = ruleset[i].split("->")[1].split("|");
+			String lhs = ruleset.get(i).split("->")[0]; 
+			String[] rhs = ruleset.get(i).split("->")[1].split("|");
+			
+			for(int j = 0; j < rhs.length; j++) {
+				//Get rid of any leading and trailing spaces in the strings 
+				//This ensure that only the exact strings of the grammar are added to the list
+				rhs[j].trim();
+			}
 			
 			this.cnfRules[i] = new Rule(lhs, new ArrayList<String>(Arrays.asList(rhs)));
 		}
 	}
 	
+	/**
+	 * Returns the start symbol of this grammar
+	 * @return The start symbol of this grammar
+	 */
+	public String getStart() {
+		return this.start;
+	}
+	
+	/**
+	 * Returns the rhs of the rules for a given lhs
+	 * @param left The given lhs that we want the rules of
+	 * @return The rhs of the rules 
+	 */
 	public ArrayList<String> getRule(String left) {
 		for(int i = 0; i < this.cnfRules.length; i++) {
-			if(this.cnfRules[i].getLeft().equalsIgnoreCase(left)) {
+			//Find the lhs in the set of rules we have
+			if(this.cnfRules[i].getLeft().equals(left)) {
+				//if specific lhs found, return the rhs
 				return this.cnfRules[i].getRight();
 			}
 		}
 		
+		//if lhs not found, return null
 		return null;
 	}
 	
+	
+	/**
+	 * Return a list of lhs of rules that a given rhs can be obtained from 
+	 * @param right The rhs that we want to know how it can be obtained
+	 * @return A list of lhs of rules from which this rhs can be obtained
+	 */
 	public ArrayList<String> belongsToRules(String right) {
 		ArrayList<String> lefts = new ArrayList<String>();
 		
 		for(int i = 0; i < this.cnfRules.length; i++) {
+			//check whether the given string is an rhs of the rule
 			if (this.cnfRules[i].inRule(right)) {
+				//add the lhs of the rule to the list
 				lefts.add(this.cnfRules[i].getLeft());
 			}
 		}
 		
+		//if the list is empty, rhs cannot be obtained through any rules
+		//return null
 		if(lefts.isEmpty()) {
 			return null;
 		}
+		
 		return lefts;
 	}
+	
+	
+	
 }
