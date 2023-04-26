@@ -1,5 +1,5 @@
 S -> AZ | E
 Z -> PB |b
-P -> AB
+P -> AZ
 A -> a
 B -> b

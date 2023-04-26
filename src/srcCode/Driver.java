@@ -23,21 +23,37 @@ public class Driver {
 			rules.add(filesc.nextLine());
 		}
 		
-		//accept string to be checked from user
-		//call CYK(checkstring, rules[])
-		System.out.println("Enter string that you want to check: ");
-		String checkStr = sc.nextLine();
+		String cont = "n";
 		
-		//Build a cyk table for the given grammar and string 
-		CYK cyk = new CYK(checkStr, rules);
-		
-		//Check if the given string can be formed through this grammar
-		if(cyk.checkInGrammar()) {
-			System.out.println(checkStr + " can be obtained through this grammar!");
+		do {
+			//accept string to be checked from user
+			//call CYK(checkstring, rules[])
+			System.out.println("Enter string that you want to check: ");
+			String checkStr = sc.nextLine();
 			
-		} else {
-			System.out.println(checkStr + " cannot be obtained through this grammar.");
-		}
+			//If the string is empty, give it E terminal for empty string
+			if(checkStr.length() == 0) {
+				checkStr = "E";
+			}
+			
+			//Build a cyk table for the given grammar and string 
+			CYK cyk = new CYK(checkStr, rules);
+			
+			//Check if the given string can be formed through this grammar
+			if(cyk.checkInGrammar()) {
+				System.out.println(checkStr + " can be obtained through this grammar!");
+				
+			} else {
+				System.out.println(checkStr + " cannot be obtained through this grammar.");
+			}
+			
+			System.out.println();
+			
+			System.out.println("Would you like to continue checking another String?\n"
+					+ "Enter Y/N");
+			cont = sc.nextLine();
+			
+		} while(cont.equalsIgnoreCase("y"));
 		
 		sc.close();
 		filesc.close();

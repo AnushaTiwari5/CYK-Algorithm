@@ -50,7 +50,7 @@ public class CYK {
 		for(int i = 0; i < checkString.length(); i++) {
 			//j = Column variable
 			for(int j = 0; j < checkString.length() - i; j++) {
-				fillCell(j, i);
+				cykTable[i][j] =  fillCell(j, i);
 			}
 		}
 	}
@@ -92,7 +92,7 @@ public class CYK {
 				//Get the Cartesian Product of the cells
 				prodList = cartProd(getCell(col, i), getCell(col+1+i, row - (i+1)));
 				
-				if(prodList.equals(null)) {
+				if(prodList == null) {
 					//One or more of the cells were null. 
 					//The product is also null
 					continue;
@@ -119,7 +119,7 @@ public class CYK {
 				//Get the list of rules that each String in the produced list can be produced through
 				strRules = cnf.belongsToRules(strList.get(i));
 				
-				if(strRules.equals(null)) {
+				if(strRules == null) {
 					//If there are no rules producing this String, it will be null. 
 					//Don't fill in anything in the rule list
 					continue;
@@ -152,7 +152,11 @@ public class CYK {
 	 * @return The list of Strings in the given cell of the table
 	 */
 	public ArrayList<String> getCell(int col, int row) {
-		return this.cykTable[row][col];
+		ArrayList<String> str = this.cykTable[row][col];
+		if(str.isEmpty()) {
+			return null;
+		}
+		return str;
 	}
 	
 	/**
@@ -168,7 +172,7 @@ public class CYK {
 		ArrayList<String> prodList = new ArrayList<String>();
 		
 		//If either of the Strings are null, the resulting product is null
-		if(str1.equals(null) || str2.equals(null)) {
+		if(str1 == null || str2 == null) {
 			return null;
 		}
 		
@@ -185,11 +189,15 @@ public class CYK {
 			}
 		}
 		
-		//return list of cartesian products
+		//return list of Cartesian products
 		return prodList;
 	}
 	
 	public boolean checkInGrammar() {
-		return this.getCell(1, checkString.length()-1).contains(cnf.getStart());
+		ArrayList<String> topCell = this.getCell(0, checkString.length() - 1);
+		if(topCell == null) {
+			return false;
+		}
+		return topCell.contains(cnf.getStart());
 	}
 }

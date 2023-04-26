@@ -83,5 +83,15 @@ public class Rule {
 		return false;
 	}
 	
+	public String toString() {
+		String str = lhs + " -> " + rhs.get(0);
+		
+		for(int i = 1; i < rhs.size(); i++) {
+			str += " | " + rhs.get(i) + " ";
+		}
+		
+		return str;
+	}
+	
 }
 
