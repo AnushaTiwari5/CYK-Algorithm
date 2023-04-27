@@ -83,6 +83,9 @@ public class Rule {
 		return false;
 	}
 	
+	/**
+	 * Returns a String representation of the rule
+	 */
 	public String toString() {
 		String str = lhs + " -> " + rhs.get(0);
 		

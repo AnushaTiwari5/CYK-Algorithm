@@ -2,6 +2,10 @@ package srcCode;
 
 import java.util.ArrayList;
 
+/**
+ * Class which builds a CYK table given a grammar to check whether the String belongs to that grammar
+ * @author anush
+ */
 public class CYK {
 
 	/**
@@ -153,7 +157,7 @@ public class CYK {
 	 */
 	public ArrayList<String> getCell(int col, int row) {
 		ArrayList<String> str = this.cykTable[row][col];
-		if(str.isEmpty()) {
+		if(str == null || str.isEmpty()) {
 			return null;
 		}
 		return str;
@@ -193,8 +197,17 @@ public class CYK {
 		return prodList;
 	}
 	
+	/**
+	 * Check whether given String can be obtained through this grammar
+	 * @return True, if the String can be obtained from this grammar. Else, false
+	 */
 	public boolean checkInGrammar() {
+		//Get the topmost (0, n-1) cell of the table
 		ArrayList<String> topCell = this.getCell(0, checkString.length() - 1);
+		
+		//The String can only be obtained through this grammar if the cell contains the start state.
+		//Check whether the cell is null, or contains the start state. Returns true or false accordingly
+		
 		if(topCell == null) {
 			return false;
 		}
