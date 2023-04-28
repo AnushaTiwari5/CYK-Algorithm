@@ -1,6 +1,6 @@
 S -> TT|Z1Z2|#
 T -> WT|TW|#
 U -> Z1Z2|#
-Z1 -> 0U
+Z1 -> WU
 Z2 -> WW
 W -> 0
