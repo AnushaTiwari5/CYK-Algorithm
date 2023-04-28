@@ -14,17 +14,17 @@ public class CNFParse {
 	 * The head of each Linked List will be the LHS of the rule
 	 * The rest of the nodes will be the RHS of the rule
 	 */	
-	Rule[] cnfRules;
+	private Rule[] cnfRules;
 
 	/*
 	 * The rules of the grammar
 	 */
-	ArrayList<String> ruleset = null;
+	private ArrayList<String> ruleset = null;
 
 	/*
 	 * The start symbol of this grammar
 	 */
-	String start;
+	private String start;
 
 	/**
 	 * Constructor of the parser class

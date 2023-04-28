@@ -12,17 +12,17 @@ public class CYK {
 	 * A Jagged 2D array which will be used to implement the CYK algorithm dynamically
 	 * Each cell in the array will store a list of lhs of the rules of this grammar 
 	 */
-	ArrayList<String>[][] cykTable;
+	private ArrayList<String>[][] cykTable;
 	
 	/**
 	 * The string that we want to check can be formed through this grammar
 	 */
-	String checkString;
+	private String checkString;
 	
 	/**
 	 * Parser object used to parse and implement cnf rules
 	 */
-	CNFParse cnf;
+	private CNFParse cnf;
 	
 	/**
 	 * The constructor to implement this CYK
